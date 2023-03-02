@@ -14,10 +14,24 @@ const routes = [
         path: 'about',
         name: 'About',
         component: () => import('../views/front/AboutView.vue')
+      },
+      {
+        path: 'products',
+        name: 'Products',
+        component: () => import('../views/front/ProductsView.vue')
+      },
+      {
+        path: 'product/:id',
+        name: 'Product',
+        component: () => import('../views/front/ProductView.vue')
+      },
+      {
+        path: 'cart',
+        name: 'Cart',
+        component: () => import('../views/front/CartView.vue')
       }
     ]
   }
-  
 ]
 
 const router = createRouter({
