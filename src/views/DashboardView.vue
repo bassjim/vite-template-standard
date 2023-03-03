@@ -27,15 +27,15 @@ export default {
             this.$route.push('/login')
           }
         })
-        // .catch((err) => {
-        //   alert('登入失敗，將返回登入頁')
-        //   // window.location = 'login.html';
-        //   this.$router.push('/login')
-        // })
-    },
-    mounted () {
-      this.checkAdmin()
+        .catch((_err) => {
+          alert('登入失敗，將返回登入頁')
+          // window.location = 'login.html';
+          this.$router.push('/login')
+        })
     }
+  },
+  mounted () {
+    this.checkAdmin()
   }
 }
 </script>
