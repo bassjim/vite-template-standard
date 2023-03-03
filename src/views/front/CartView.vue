@@ -1,6 +1,5 @@
 <template>
     <h3 class="mt-5 mb-3 text-center">購物車</h3>
-    <Loading :active="isLoading"></Loading>
     <table class="table align-middle">
           <thead>
             <tr>
@@ -59,9 +58,9 @@
 </template>
 
 <script>
+
 import OrderForm from '../../components/OrderForm.vue'
 const { VITE_URL, VITE_PATH } = import.meta.env
-
 export default {
   data () {
     return {
@@ -84,9 +83,6 @@ export default {
         .catch((err) => {
           console.log(err)
         })
-    },
-    openModal (id) {
-      this.itemId = id
     },
     getCarts () {
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/cart`)
@@ -135,9 +131,7 @@ export default {
   mounted () {
     this.getCarts()
   },
-  components: {
-    OrderForm
-  }
+  components: { OrderForm }
 }
 </script>
 <style scoped></style>
