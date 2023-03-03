@@ -25,6 +25,6 @@ git commit -m 'deploy'
 
 # if you are deploying to https://bassjim.github.io/vite-deploy-sample
 #git push -f git@github.com:bassjim/vite-deploy-sample.git main:gh-pages
-git push -f https://github.com/bassjim/vite-template-standard main:gh-pages
+git push -f https://github.com/bassjim/vite-template-standard.git main:gh-pages
 
 cd -
