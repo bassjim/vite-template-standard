@@ -8,4 +8,3 @@
     <hr>
     <RouterView></RouterView>
 </template>
-
