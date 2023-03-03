@@ -1,14 +1,18 @@
 <template>
-    產品列表
-    <table class="table">
-        <tbody>
-            <tr v-for="product in products" :key="product.id">
-            <td>{{ product.title }}</td>
-            <td><img :src="product.imageUrl" width="200" alt=""></td>
-            <td><router-link :to="`product/${product.id}`" >查看單一產品</router-link></td>
-            </tr>
-        </tbody>
-    </table>
+  <div>產品列表</div>
+  <table class="table">
+    <tbody>
+      <tr v-for="product in products" :key="product.id">
+        <td>{{ product.title }}</td>
+        <td><img :src="product.imageUrl" width="200" alt="" /></td>
+        <td><router-link :to="`product/${product.id}`" class="btn  btn-outline-secondary">查看單一產品</router-link></td>
+        <td><router-link :to="`product/${product.id}`" class="btn btn-secondary">查看單一產品</router-link>
+          <button type="button" class="btn btn-primary"
+          @click="addTOCart(product.id)"><i class="bi bi-cart-check"></i>加入購物車</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
@@ -26,15 +30,26 @@ export default {
   },
   methods: {
     getProducts () {
-      this.$http.get(`${VITE_URL}/api/${VITE_PATH}/products/all`)
+      this.$http
+        .get(`${VITE_URL}/api/${VITE_PATH}/products/all`)
         .then((res) => {
           this.products = res.data.products
-          console.log(res.data.products)
+          console.log('產品列表', res.data.products)
         })
     },
-    mounted () {
-      this.getProducts()
+    addTOCart (id) {
+      const data = {
+        product_id: id,
+        qty: 1
+      }
+      this.$http.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data })
+        .then((res) =>
+          console.log('產品列表', res)
+        )
     }
+  },
+  mounted () {
+    this.getProducts()
   }
 }
 </script>
