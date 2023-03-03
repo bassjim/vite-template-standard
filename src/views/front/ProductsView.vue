@@ -1,4 +1,9 @@
 <template>
+      <loading v-model:active="isLoading"
+                 :can-cancel="true"
+                 :color="color"
+                 :on-cancel="onCancel"
+                 :is-full-page="fullPage"/>
   <div>產品列表</div>
   <table class="table">
     <tbody>
@@ -17,6 +22,9 @@
 
 <script>
 import { RouterLink } from 'vue-router'
+import Swal from 'sweetalert2'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
@@ -26,7 +34,8 @@ export default {
     }
   },
   components: {
-    RouterLink
+    RouterLink,
+    Loading
   },
   methods: {
     getProducts () {
@@ -34,7 +43,6 @@ export default {
         .get(`${VITE_URL}/api/${VITE_PATH}/products/all`)
         .then((res) => {
           this.products = res.data.products
-          console.log('產品列表', res.data.products)
         })
     },
     addTOCart (id) {
@@ -44,7 +52,7 @@ export default {
       }
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data })
         .then((res) =>
-          console.log('產品列表', res)
+          Swal.fire('成功加入購物車')
         )
     }
   },

@@ -1,5 +1,6 @@
 <template>
-    購物車
+    <h3 class="mt-5 mb-3 text-center">購物車</h3>
+    <Loading :active="isLoading"></Loading>
     <table class="table align-middle">
           <thead>
             <tr>
@@ -54,10 +55,13 @@
             </tr>
           </tfoot>
         </table>
+        <OrderForm :cart="cart" :get-cart="getCart"></OrderForm>
 </template>
 
 <script>
+import OrderForm from '../../components/OrderForm.vue'
 const { VITE_URL, VITE_PATH } = import.meta.env
+
 export default {
   data () {
     return {
@@ -66,17 +70,7 @@ export default {
       product: {},
       cart: {},
       loadingItem: '', // 存ID
-      isLoading: false,
-      form: {
-        user: {
-          name: '',
-          email: '',
-          tel: '',
-          address: ''
-        },
-        message: ''
-
-      }
+      isLoading: false
 
     }
   },
@@ -135,28 +129,15 @@ export default {
         .catch((err) => {
           console.log(err)
         })
-    },
-
-    // 自訂驗證
-    isPhone (value) {
-      const phoneNumber = /^(09)[0-9]{8}$/
-      return phoneNumber.test(value) ? true : '需要正確的電話號碼'
-    },
-    createOrder () {
-      this.$http.post(`${VITE_URL}/api/${VITE_PATH}/order`, { data: this.form })
-        .then((res) => {
-          alert(res.data.message)
-          this.getCarts()
-          this.$refs.form.resetForm()
-          this.clearCart('')
-        })
-        .catch(error => {
-          console.log(error)
-        })
     }
+
   },
   mounted () {
     this.getCarts()
+  },
+  components: {
+    OrderForm
   }
 }
 </script>
+<style scoped></style>
