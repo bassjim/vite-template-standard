@@ -73,9 +73,8 @@ export default {
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/order`, { data: this.form })
         .then((res) => {
           alert(res.data.message)
-          this.getCarts()
+          this.getCart()
           this.$refs.form.resetForm()
-          this.clearCart('')
         })
         .catch(error => {
           console.log(error)
