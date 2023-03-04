@@ -55,17 +55,7 @@ const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
   data () {
     return {
-      form: {
-        user: {
-          name: '',
-          email: '',
-          tel: '',
-          address: ''
-        },
-        message: ''
-
-      }
-
+      user: {}
     }
   },
   methods: {
