@@ -50,6 +50,19 @@ const routes = [
         component: () => import('../views/admin/AdminOrders.vue')
       }
     ]
+  },
+  // 404
+  {
+    path: '/pathMatch(.*)*',
+    component: () => import('../views/NotFound.vue')
+  },
+  {
+    path: '/newPage/pathMatch(.*)*',
+    redirect: {
+      path: '',
+      name: 'Home',
+      component: () => import('../views/front/HomeView.vue')
+    }
   }
 ]
 
