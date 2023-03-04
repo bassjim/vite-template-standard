@@ -35,10 +35,12 @@ export default {
   },
   methods: {
     getProducts () {
+      const loader = this.$loading.show()
       this.$http
         .get(`${VITE_URL}/api/${VITE_PATH}/products/all`)
         .then((res) => {
           this.products = res.data.products
+          loader.hide()
         })
     },
     addTOCart (id) {
