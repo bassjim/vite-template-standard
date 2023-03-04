@@ -37,7 +37,7 @@
             <div class="mb-3">
               <label for="message" class="form-label">留言</label>
               <v-field id="message" name="附註" type="text" class="form-control" :class="{ 'is-invalid': errors['附註'] }" placeholder="請輸入 附註"
-                v-model="form.user.message"  as="textarea"  cols="10"  rows="10">
+                v-model="form.message"  as="textarea"  cols="10"  rows="10">
                 <textarea id="message" class="form-control" cols="30" rows="10" ></textarea></v-field>
             </div>
             <div class="text-end">
