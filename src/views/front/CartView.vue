@@ -1,4 +1,7 @@
 <template>
+    <div class="text-end">
+          <button class="btn btn-outline-danger" type="button" @click="clearCart">清空購物車</button>
+    </div>
     <h3 class="mt-5 mb-3 text-center">購物車</h3>
     <table class="table align-middle">
           <thead>
@@ -54,11 +57,11 @@
             </tr>
           </tfoot>
         </table>
-        <OrderForm :cart="cart" :get-cart="getCart"></OrderForm>
+        <OrderForm :cart="cart" :get-cart="getCarts"></OrderForm>
 </template>
 
 <script>
-
+import Swal from 'sweetalert2'
 import OrderForm from '../../components/OrderForm.vue'
 const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
@@ -74,16 +77,6 @@ export default {
     }
   },
   methods: {
-    getProducts () {
-      this.$http.get(`${VITE_URL}/api/${VITE_PATH}/products/all`)
-        .then((res) => {
-          this.products = res.data.products
-          this.isLoading = false
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    },
     getCarts () {
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/cart`)
         .then((res) => {
@@ -113,7 +106,7 @@ export default {
     deleteItem (id) {
       this.loadingItem = id
       this.$http
-        .delete(`${VITE_URL}api/${VITE_PATH}/cart/${id}`)
+        .delete(`${VITE_URL}/api/${VITE_PATH}/cart/${id}`)
         .then((res) => {
           this.getCarts()
           this.isLoading = true
@@ -121,6 +114,21 @@ export default {
             // 0.3 秒後結束 loading
             this.isLoading = false
           }, 300)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    clearCart () {
+      this.$http.delete(`${VITE_URL}/api/${VITE_PATH}/carts`)
+        .then((res) => {
+          Swal.fire({
+            title: '購物車目前沒有商品', // 標題
+            icon: 'question'
+          }
+          )
+          this.getCarts()
+          this.loadingItem = ''
         })
         .catch((err) => {
           console.log(err)

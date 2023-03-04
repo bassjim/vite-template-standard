@@ -1,9 +1,5 @@
 <template>
-      <loading v-model:active="isLoading"
-                 :can-cancel="true"
-                 :color="color"
-                 :on-cancel="onCancel"
-                 :is-full-page="fullPage"/>
+<loading :active="isLoading" :can-cancel="true"></loading>
   <div>產品列表</div>
   <table class="table">
     <tbody>
@@ -30,7 +26,8 @@ const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
   data () {
     return {
-      products: []
+      products: [],
+      isLoading: false
     }
   },
   components: {
@@ -54,7 +51,16 @@ export default {
         .then((res) =>
           Swal.fire('成功加入購物車')
         )
+    },
+    async loadData () {
+      this.isLoading = true
+      this.data = null
+      const response = await fetch('https://api.example.com/data')
+      const data = await response.json()
+      this.data = data
+      this.isLoading = false
     }
+
   },
   mounted () {
     this.getProducts()
