@@ -6,7 +6,6 @@
       <tr v-for="product in products" :key="product.id">
         <td>{{ product.title }}</td>
         <td><img :src="product.imageUrl" width="200" alt="" /></td>
-        <td><router-link :to="`product/${product.id}`" class="btn  btn-outline-secondary">查看單一產品</router-link></td>
         <td><router-link :to="`product/${product.id}`" class="btn btn-secondary">查看單一產品</router-link>
           <button type="button" class="btn btn-primary"
           @click="addTOCart(product.id)"><i class="bi bi-cart-check"></i>加入購物車</button>
