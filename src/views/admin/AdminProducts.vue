@@ -138,6 +138,7 @@ export default {
       if (!this.isNew) {
         url = `${VITE_URL}/api/${VITE_PATH}/admin/product/${this.tempProduct.id}`
         method = 'put'
+        this.$refs.productModal.hideModal()
       }
       this.$http[method](`${url}`, { data: this.tempProduct })
         .then((res) => {
@@ -192,8 +193,8 @@ export default {
     delProductModal
   },
   mounted () {
-    // const token = document.cookie.replace(/(?:(?:^|.*;\s*)myToken\s*=\s*([^;]*).*$)|^.*$/, '$1')
-    // this.$http.defaults.headers.common.Authorization = token
+    const token = document.cookie.replace(/(?:(?:^|.*;\s*)myToken\s*=\s*([^;]*).*$)|^.*$/, '$1')
+    this.$http.defaults.headers.common.Authorization = token
     this.getProducts()
   }
 
