@@ -17,24 +17,24 @@
                         <div class="mb-3">
                             <label for="imageUrl" class="form-label">輸入圖片網址</label>
                             <input type="text" class="form-control"
-                            v-model="innerProduct.imageUrl"     placeholder="請輸入圖片連結">
+                            placeholder="請輸入圖片連結" id="imageUrl" v-model="innerProduct.imagesUrl">
                         </div>
-                        <img class="img-fluid" :src="innerProduct.imageUrl" alt="">
+                        <img class="img-fluid" :src="innerProduct.imagesUrl" alt="">
                         </div>
                         <!-- 如果(!tempProduct.imagesUrl陣列有無東西)||(tempProduct.imagesUrl最後一個有無值)  -->
                         <!-- 如果(!tempProduct.imagesUrl陣列有東西)false||(tempProduct.imagesUrl最後一個無值)false  叫出delet按鈕-->
                         <!-- 如果(!tempProduct.imagesUrl陣列無東西)true||(tempProduct.imagesUrl最後一個無值)false  叫出新增按鈕-->
                         <h3 class="mb-3">多圖新增</h3>
                         <div v-if="Array.isArray(innerProduct.imagesUrl)">
-                        <template v-for="(image, key) in innerProduct.imagesUrl" :key="key +1234">
+                        <template v-for="(imageUrl, index) in innerProduct.imagesUrl" :key="index">
                             <div class="mb-3">
                             <label for="imageUrl" class="form-label">圖片網址</label>
-                            <input v-model="innerProduct.imagesUrl[key]" type="text" class="form-control"
-                                placeholder="請輸入圖片連結">
+                              <input type="text" class="form-control"
+                              placeholder="請輸入圖片連結" id="imagesUrl" v-model="innerProduct.imagesUrl[index]">
                             </div>
-                            <img class="img-fluid" :src="innerProduct.image">
+                            <img class="img-fluid" :src="innerProduct.imagesUrl[index]">
                         </template>
-                        <div v-if="!innerProduct.imagesUrl.length || innerProduct.imagesUrl[innerProduct.imagesUrl.length - 1]">
+                        <div v-if="!innerProduct.imagesUrl || !innerProduct.imagesUrl.length || innerProduct.imagesUrl[innerProduct.imagesUrl.length-1]">
                             <button class="btn btn-outline-primary btn-sm d-block w-100"
                             @click="addImg">
                             新增圖片
@@ -112,7 +112,7 @@
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     取消
                     </button>
-                    <button type="button" class="btn btn-primary" @click="updateProducts">
+                    <button type="button" class="btn btn-primary" @click="$emit('updateProducts', innerProduct)">
                     確認
                     </button>
                 </div>
@@ -129,8 +129,7 @@ export default {
   emits: ['updateProducts'],
   data () {
     return {
-      productModal: '',
-      innerProduct: ''
+      productModal: ''
     }
   },
   methods: {
@@ -144,7 +143,9 @@ export default {
     createImg () {
       // 當多圖的地方沒有東西
       // 建立一個陣列初始化，並且放入一筆空的資料
-      this.innerProduct.imagesUrl = []
+      if (!this.innerProduct.imagesUrl) {
+        this.innerProduct.imagesUrl = []
+      }
       this.innerProduct.imagesUrl.push('')
     },
 
@@ -158,6 +159,11 @@ export default {
   mounted () {
     // dom 生成後，再取得 model
     this.productModal = new Modal(this.$refs.productModal, { keyboard: false })
+  },
+  computed: {
+    innerProduct () {
+      return this.tempProduct
+    }
   }
 
 }

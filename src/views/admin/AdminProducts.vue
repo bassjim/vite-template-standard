@@ -62,10 +62,10 @@
           @change-page = "getProducts"
           ></pagination>
                 <!-- Modal -->
-          <productModal ref="productModal" :temp-product="tempProduct" :update-products="updateProducts" :is-new="isNew"
-          :add-img="addImg" :delete-img="deleteImg" :create-img="createImg"></productModal>
+          <productModal ref="productModal" :temp-product="tempProduct" :is-new="isNew" @update-products="updateProducts"
+          ></productModal>
 
-          <delProductModal ref="delProductModal"  :temp-product="tempProduct" :del-products="delProducts"></delProductModal>
+          <delProductModal ref="delProductModal"  :temp-product="tempProduct" @del-products="delProducts"></delProductModal>
 
       <!-- Modal -->
     </div>
@@ -99,7 +99,6 @@ export default {
         .then((res) => {
           this.products = res.data.products
           this.page = res.data.pagination
-          console.log(res)
         })
         .catch(err => {
           Swal.fire({
@@ -173,7 +172,7 @@ export default {
             showConfirmButton: false,
             timer: 1500
           })
-          this.$refs.delProductModal.hide()// 關閉Model
+          this.$refs.delProductModal.hideModal()// 關閉Model
         })
         .catch(err => {
           Swal.fire({

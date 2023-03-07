@@ -30,9 +30,10 @@ import Modal from 'bootstrap/js/dist/modal'
 
 export default {
   props: ['tempProduct'],
+  emits: ['delProducts'],
   data () {
     return {
-      delProductModal: null
+      delProductModal: ''
     }
   },
   mounted () {

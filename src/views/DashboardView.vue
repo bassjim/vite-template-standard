@@ -22,7 +22,6 @@ export default {
       const url = `${VITE_URL}/api/user/check`
       this.$http.post(url)
         .then((res) => {
-          console.log(res.data)
           if (!res.data.success) {
             this.$route.push('/login')
           }
