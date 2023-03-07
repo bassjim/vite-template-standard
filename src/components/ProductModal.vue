@@ -19,6 +19,10 @@
                             <input type="text" class="form-control"
                             placeholder="請輸入圖片連結" id="imageUrl" v-model="innerProduct.imagesUrl">
                         </div>
+                        <div class="mb-3">
+                            <label for="uploadFile" class="form-label">或 上傳圖片</label>
+                            <input type="file" id="uploadFile" class="form-control" ref="fileInput" @change="uploadFile"/>
+                        </div>
                         <img class="img-fluid" :src="innerProduct.imagesUrl" alt="">
                         </div>
                         <!-- 如果(!tempProduct.imagesUrl陣列有無東西)||(tempProduct.imagesUrl最後一個有無值)  -->
@@ -123,7 +127,9 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 import Modal from 'bootstrap/js/dist/modal'
+const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
   props: ['tempProduct', 'isNew'],
   emits: ['updateProducts'],
@@ -154,6 +160,40 @@ export default {
     },
     hideModal () {
       this.productModal.hide()
+    },
+    uploadFile () {
+      const formData = new FormData()
+      formData.append('file-to-upload', this.$refs.fileInput.files[0])
+      const url = `${VITE_URL}/api/${VITE_PATH}/admin/upload`
+
+      Swal.fire({
+        title: '上傳圖片中',
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading()
+        },
+        willClose: () => {
+          this.$http.post(url, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+            .then(res => {
+              if (res.data.success) {
+                this.innerProduct.imageUrl = res.data.imageUrl
+              }
+              this.$refs.fileInput.value = ''
+            })
+            .catch(err => {
+              Swal.fire({
+                icon: 'error',
+                title: err.response.data.message
+              })
+              this.$refs.fileInput.value = ''
+            })
+        }
+      })
     }
   },
   mounted () {

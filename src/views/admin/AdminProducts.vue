@@ -148,7 +148,7 @@ export default {
             showConfirmButton: false,
             timer: 1500
           })
-          this.$refs.productModal.hide()// 關閉Model
+          this.$refs.productModal.hideModal()// 關閉Model
         })
         .catch(err => {
           Swal.fire({
