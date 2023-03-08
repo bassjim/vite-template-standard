@@ -3,7 +3,11 @@
 </template>
 
 <script>
-export default {}
+export default {
+  mounted () {
+    this.$showLoading()
+  }
+}
 </script>
 
 <style scoped>

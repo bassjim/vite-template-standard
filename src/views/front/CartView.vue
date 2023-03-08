@@ -1,4 +1,5 @@
 <template>
+  <VueLoading :active="isLoading"></VueLoading>
     <div class="text-end">
           <button class="btn btn-outline-danger" type="button" @click="clearCart">清空購物車</button>
     </div>
@@ -138,6 +139,7 @@ export default {
   },
   mounted () {
     this.getCarts()
+    this.$showLoading()
   },
   components: { OrderForm }
 }

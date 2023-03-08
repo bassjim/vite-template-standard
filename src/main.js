@@ -7,6 +7,7 @@ import VueAxios from 'vue-axios'
 import App from './App.vue'
 import router from './router'
 import './assets/all.scss'
+import moment from 'moment'
 
 import { LoadingPlugin } from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
@@ -33,6 +34,21 @@ const app = createApp(App)
 app.use(LoadingPlugin)
 app.use(createPinia())
 
+app.config.globalProperties.$showLoading = function () {
+  const loader = this.$loading.show({
+    loader: 'bars',
+    color: '#999',
+    width: 64,
+    height: 64,
+    fullPage: true,
+    canCancel: false
+  })
+  setTimeout(() => {
+    loader.hide()
+  }, 1500)
+}
+app.config.globalProperties.$moment = moment
+app.use(moment)
 app.use(VueAxios, axios)
 app.use(router)
 app.component('VField', Field)

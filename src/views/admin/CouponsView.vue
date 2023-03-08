@@ -26,7 +26,7 @@
               <tr v-for="coupon in coupons" :key="coupon.id">
                 <td>{{ coupon.title }}</td>
                 <td> {{ `${coupon.percent} %`  }}</td>
-                <td> {{ $dateFormat.date(coupon.due_date) }}</td>
+                <td> {{ coupon.due_date }}</td>
                 <td>
                   <span class="text-success" v-if="coupon.is_enabled">啟用</span>
                   <span v-else>未啟用</span>
@@ -52,7 +52,7 @@
           @save-coupon="saveCoupon"></CouponModal>
         <DelModal ref="delModal" :temp-item="tempCoupon" @delete-item="deleteCoupon"></DelModal>
         <!-- Modal -->
-  </template>
+</template>
 
 <script>
 import Swal from 'sweetalert2'
@@ -177,6 +177,7 @@ export default {
   },
   mounted () {
     this.getCoupons()
+    this.$showLoading()
   }
 }
 </script>

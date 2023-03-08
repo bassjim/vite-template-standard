@@ -1,4 +1,5 @@
 <template>
+  <VueLoading :active="isLoading"></VueLoading>
     產品頁面
     <hr>
 <div class="card mb-3 container" style="max-width: 800px;max-height:800px">

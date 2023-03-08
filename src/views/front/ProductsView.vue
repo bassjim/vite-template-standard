@@ -1,5 +1,5 @@
 <template>
-<loading :active="isLoading" :can-cancel="true"></loading>
+<VueLoading :active="isLoading"></VueLoading>
   <div>產品列表</div>
   <table class="table">
     <tbody>
@@ -18,8 +18,6 @@
 <script>
 import { RouterLink } from 'vue-router'
 import Swal from 'sweetalert2'
-import Loading from 'vue-loading-overlay'
-import 'vue-loading-overlay/dist/css/index.css'
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
@@ -30,17 +28,14 @@ export default {
     }
   },
   components: {
-    RouterLink,
-    Loading
+    RouterLink
   },
   methods: {
     getProducts () {
-      const loader = this.$loading.show()
       this.$http
         .get(`${VITE_URL}/api/${VITE_PATH}/products/all`)
         .then((res) => {
           this.products = res.data.products
-          loader.hide()
         })
     },
     addTOCart (id) {
@@ -65,6 +60,7 @@ export default {
   },
   mounted () {
     this.getProducts()
+    this.$showLoading()
   }
 }
 </script>

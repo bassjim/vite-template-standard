@@ -46,7 +46,7 @@
                       <tr>
                         <th>下單時間</th>
                         <td>
-                          {{ $dateFormat.date(innerOrder.create_at) }}
+                          {{ $moment(new Date(innerOrder.create_at * 1000)).format('YYYY-MM-DD HH:mm') }}
                         </td>
                       </tr>
                       <tr>

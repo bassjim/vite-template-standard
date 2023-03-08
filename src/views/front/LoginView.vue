@@ -1,4 +1,5 @@
 <template>
+  <VueLoading :active="isLoading"></VueLoading>
     <div class="container">
       <div class="row justify-content-center">
         <h1 class="h3 mb-3 font-weight-normal text-center">
@@ -55,6 +56,9 @@ export default {
           alert(err.response.data.message)
         })
     }
+  },
+  mounted () {
+    this.$showLoading()
   }
 }
 </script>

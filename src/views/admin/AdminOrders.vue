@@ -15,7 +15,7 @@
               </thead>
               <tbody>
                 <tr v-for="order in orders" :key="order.id" :class="{ 'text-secondary': !order.is_paid }">
-                  <td>{{ $dateFormat.date(order.create_at) }}</td>
+                  <td>{{ order.create_at }}</td>
                   <td>{{ order.user.email }}</td>
                   <td>
                     <ul class="list-unstyled">
@@ -64,7 +64,7 @@ import Swal from 'sweetalert2'
 import PaginationComponent from '@/components/PaginationComponent.vue'
 import OrderModal from '@/components/OrderModal.vue'
 import DelModal from '@/components/DelModal.vue'
-const { VITE_API, VITE_APIPATH } = import.meta.env
+const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
   data () {
     return {
@@ -81,7 +81,7 @@ export default {
     getOrders (pageNum = 1) {
       this.isLoading = true
       this.pageNum = pageNum
-      this.$http.get(`${VITE_API}/api/${VITE_APIPATH}/admin/orders?page=${pageNum}`)
+      this.$http.get(`${VITE_URL}/api/${VITE_PATH}/admin/orders?page=${pageNum}`)
         .then(res => {
           this.orders = res.data.orders
           this.pagination = res.data.pagination
@@ -101,7 +101,7 @@ export default {
     // 更新付款狀態
     updatePaid (order) {
       this.isLoading = true
-      this.$http.put(`${VITE_API}/api/${VITE_APIPATH}/admin/order/${order.id}`, { data: { is_paid: order.is_paid } })
+      this.$http.put(`${VITE_URL}/api/${VITE_PATH}/admin/order/${order.id}`, { data: { is_paid: order.is_paid } })
         .then(res => {
           this.$refs.orderModal.hideModal()
           Swal.fire({
@@ -127,7 +127,7 @@ export default {
     // 刪除訂單
     deleteOrder () {
       this.isLoading = true
-      this.$http.delete(`${VITE_API}/api/${VITE_APIPATH}/admin/order/${this.tempOrder.id}`, { data: this.tempOrder })
+      this.$http.delete(`${VITE_URL}/api/${VITE_PATH}/admin/order/${this.tempOrder.id}`, { data: this.tempOrder })
         .then(res => {
           this.$refs.delModal.hideModal()
           Swal.fire({
@@ -172,6 +172,7 @@ export default {
   },
   mounted () {
     this.getOrders()
+    this.$showLoading()
   }
 }
 </script>
