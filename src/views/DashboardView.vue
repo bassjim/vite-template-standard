@@ -2,6 +2,7 @@
     這是後台頁面
     <router-link to="/admin/products">後台產品列表</router-link> |
     <router-link to="/admin/orders">後台訂單列表</router-link>|
+    <router-link to="/admin/coupons">後台優惠卷列表</router-link>|
     <router-link to="/">返回首頁</router-link>|
     <a href="" @click.prevent="logout">登出</a>
     <hr>

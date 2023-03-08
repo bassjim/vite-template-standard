@@ -59,7 +59,7 @@ import Swal from 'sweetalert2'
 import PaginationComponent from '@/components/PaginationComponent.vue'
 import CouponModal from '@/components/CouponModal.vue'
 import DelModal from '@/components/DelModal.vue'
-const { VITE_API, VITE_APIPATH } = import.meta.env
+const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
   data () {
@@ -76,7 +76,7 @@ export default {
     getCoupons (pageNum = 1) { // 參數預設值
       this.isLoading = true
       this.pageNum = pageNum
-      this.$http.get(`${VITE_API}/api/${VITE_APIPATH}/admin/coupons?page=${pageNum}`)
+      this.$http.get(`${VITE_URL}/api/${VITE_PATH}/admin/coupons?page=${pageNum}`)
         .then(res => {
           this.coupons = res.data.coupons
           this.pagination = res.data.pagination
@@ -96,10 +96,10 @@ export default {
     // 新增 & 修改 優惠券
     saveCoupon (coupon) {
       this.isLoading = true
-      let api = `${VITE_API}/api/${VITE_APIPATH}/admin/coupon`
+      let api = `${VITE_URL}/api/${VITE_PATH}/admin/coupon`
 
       if (this.operateType === 'modify') {
-        api = `${VITE_API}/api/${VITE_APIPATH}/admin/coupon/${coupon.id}`
+        api = `${VITE_URL}/api/${VITE_PATH}/admin/coupon/${coupon.id}`
       }
       this.$http[this.operateType === 'create' ? 'post' : 'put'](`${api}`, { data: coupon })
         .then(res => {
@@ -127,7 +127,7 @@ export default {
     // 刪除商品
     deleteCoupon () {
       this.isLoading = true
-      this.$http.delete(`${VITE_API}/api/${VITE_APIPATH}/admin/coupon/${this.tempCoupon.id}`, { data: this.tempCoupon })
+      this.$http.delete(`${VITE_URL}/api/${VITE_PATH}/admin/coupon/${this.tempCoupon.id}`, { data: this.tempCoupon })
         .then(res => {
           this.$refs.delModal.hideModal()
           Swal.fire({
