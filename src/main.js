@@ -8,7 +8,7 @@ import App from './App.vue'
 import router from './router'
 import './assets/all.scss'
 import moment from 'moment'
-
+// vue-moment
 import { LoadingPlugin } from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 // vue-loading
@@ -47,7 +47,9 @@ app.config.globalProperties.$showLoading = function () {
     loader.hide()
   }, 1500)
 }
+// vue-Loading
 app.config.globalProperties.$moment = moment
+// vue-moment
 app.use(moment)
 app.use(VueAxios, axios)
 app.use(router)

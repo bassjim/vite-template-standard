@@ -5,7 +5,7 @@
             <div class="modal-content border-0">
             <div class="modal-header bg-dark text-white">
                 <h5 id="productModalLabel" class="modal-title">
-                <span v-if="isNew">新增產品</span>
+                <span v-if="operateType">新增產品</span>
                 <span v-else>編輯產品</span>
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -116,7 +116,7 @@
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     取消
                     </button>
-                    <button type="button" class="btn btn-primary" @click="$emit('updateProducts', innerProduct)">
+                    <button type="button" class="btn btn-primary" @click="$emit('saveProduct', innerProduct)">
                     確認
                     </button>
                 </div>
@@ -131,8 +131,8 @@ import Swal from 'sweetalert2'
 import Modal from 'bootstrap/js/dist/modal'
 const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
-  props: ['tempProduct', 'isNew'],
-  emits: ['updateProducts'],
+  props: ['tempProduct', 'operateType'],
+  emits: ['saveProduct'],
   data () {
     return {
       productModal: ''

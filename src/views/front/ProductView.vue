@@ -1,22 +1,32 @@
 <template>
-  <VueLoading :active="isLoading"></VueLoading>
     產品頁面
     <hr>
-<div class="card mb-3 container" style="max-width: 800px;max-height:800px">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img :src="product.imageUrl" class="img-fluid " alt="...">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">{{ product.title }}</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    <div class="card mb-3 container">
+        <div class="row g-0">
+          <div class="col-md-4 mr-3 mt-3">
+            <img :src="product.imageUrl" class="img-fluid rounded-start " alt="product.category" >
+            <div class="d-flex flex-row bd-highlight m-1 mr-3">
+                <div v-for="(item,key) in product.imagesUrl" :key="key"  class="d-flex flex-nowrap" >
+                  <img :src="item" alt="" class="images m-2 img-fluid " >
+                </div>
+            </div>
+          </div>
+          <div class="col-md-8 mt-5">
+            <div class="card-body align-items-stretch">
+              <h1 class="card-title">
+                    {{product.title}}
+                    <span class="badge bg-primary ms-2">{{product.category}}</span>
+                  </h1>
+                  <p class="card-text">商品描述：{{product.description}}</p>
+                  <p class="card-text">商品內容：{{product.content}}</p>
+                  <p class="card-text mb-">{{product.price}}</p> 元 / {{product.unit}}
+            </div>
+          </div>
+            <button type="button" class="btn btn-primary"
+                      @click="addTOCart(product.id)"><i class="bi bi-cart-check"></i>加入購物車</button>
       </div>
-      <div class="card-footer bg-transparent border-success">Footer</div>
     </div>
-  </div>
-</div>
+
 </template>
 
 <script>
@@ -45,3 +55,8 @@ export default {
   }
 }
 </script>
+<style>
+.box.stretch, .box.stretch {
+  width: 200px
+}
+</style>

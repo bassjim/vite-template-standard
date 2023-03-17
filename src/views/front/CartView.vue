@@ -1,7 +1,6 @@
 <template>
-  <VueLoading :active="isLoading"></VueLoading>
     <div class="text-end">
-          <button class="btn btn-outline-danger" type="button" @click="clearCart">清空購物車</button>
+          <button  class="btn btn-outline-danger" type="button" @click="clearCart">清空購物車</button>
     </div>
     <h3 class="mt-5 mb-3 text-center">購物車</h3>
     <table class="table align-middle">
@@ -72,8 +71,7 @@ export default {
       itemId: '',
       product: {},
       cart: {},
-      loadingItem: '', // 存ID
-      isLoading: false
+      loadingItem: '' // 存ID
 
     }
   },

@@ -15,7 +15,7 @@
               </thead>
               <tbody>
                 <tr v-for="order in orders" :key="order.id" :class="{ 'text-secondary': !order.is_paid }">
-                  <td>{{ order.create_at }}</td>
+                  <td>{{ $moment(new Date(order.create_at * 1000)).format('YYYY-MM-DD HH:mm') }}</td>
                   <td>{{ order.user.email }}</td>
                   <td>
                     <ul class="list-unstyled">

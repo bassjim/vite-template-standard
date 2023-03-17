@@ -1,7 +1,7 @@
 <template>
   <VueLoading :active="isLoading"></VueLoading>
-    <div class="container">
-      <div class="row justify-content-center">
+    <div class="container position-relative" style="min-height: 100vh;">
+      <div class="row justify-content-center mt-5">
         <h1 class="h3 mb-3 font-weight-normal text-center">
           請先登入
         </h1>
