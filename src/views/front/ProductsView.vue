@@ -3,7 +3,7 @@
 <div class="d-flex mt-5 justify-content-around container">
   <ul class="nav nav-pills mb-3 flex-column" id="pills-tab" role="tablist">
       <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Home</button>
+        <button class="nav-link " id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Home</button>
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
@@ -22,25 +22,24 @@
           </router-link>
       </li>
     </ul>
-  <div class="d-flex row row-cols-2 row-cols-md-3 flex-wrap col-md-8"  v-if="filteredProducts[filteredProducts.length - 1]">
-          <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"  v-for="product in filteredProducts"
+  <div class="d-flex row row-cols row-cols-md-3 flex-wrap col-md-8"  v-if="filteredProducts[filteredProducts.length - 1]">
+          <div class="tab-pane fade show active mb-3 row " id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"  v-for="product in filteredProducts"
                 :key="product.id">
                 <RouterLink
                   :to="`/product/${product.id}`"
                   class="card overflow-hidden"
                 >
-                <div class="card mb-3 d-flex" >
+                <div class="card-flex" >
                 <div class="row g-0 ">
-                  <div class="mx-auto">
+                  <div class="mx-auto card-img-top">
                     <img :src="product.imageUrl" class="img-fluid rounded-star" alt="...">
                   </div>
                   <div class="">
                     <div class="card-body">
                       <h5 class="card-title">{{ product.title }}</h5>
-                      <p class="card-text">商品描述：{{product.description}}</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                      <p class="card-text">{{product.description}}</p>
                     </div>
-                    <div class="card-footer bg-transparent border-success d-flex justify-content-evenly">
+                    <div class="card-footer bg-transparent border-success d-flex justify-content-evenly pb-1">
                       <router-link :to="`product/${product.id}`" class="btn btn-secondary">查看單一產品</router-link>
                         <button type="button" class="btn btn-primary"
                         @click="addTOCart(product.id)"><i class="bi bi-cart4"></i>加入購物車</button>
@@ -48,10 +47,10 @@
                   </div>
                 </div>
               </div>
-                </RouterLink>
-
+              </RouterLink>
           <!-- <td><img :src="product.imageUrl" width="200" alt="" /></td> -->
     </div>
+    <PaginationComponent :pagination="pagination" @change-page="getProducts"></PaginationComponent>
   </div>
 </div>
 </template>
@@ -59,6 +58,7 @@
 <script>
 import { RouterLink } from 'vue-router'
 import Swal from 'sweetalert2'
+import PaginationComponent from '@/components/PaginationComponent.vue'
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
@@ -67,18 +67,23 @@ export default {
       products: [],
       filteredProducts: [],
       isLoading: false,
-      categories: []
+      pagination: {},
+      categories: [],
+      pageNum: 1
     }
   },
   components: {
-    RouterLink
+    RouterLink,
+    PaginationComponent
   },
   methods: {
-    getProducts () {
+    getProducts (pageNum = 1) {
+      this.pageNum = pageNum
       this.$http
-        .get(`${VITE_URL}/api/${VITE_PATH}/products/all`)
+        .get(`${VITE_URL}/api/${VITE_PATH}/products/?page=${pageNum}`)
         .then((res) => {
           this.products = res.data.products
+          this.pagination = res.data.pagination
         })
     },
     filterProducts (page = 1) {

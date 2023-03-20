@@ -1,8 +1,8 @@
 <template>
     產品頁面
     <hr>
-    <div class="card mb-3 container">
-        <div class="row g-0">
+    <div class="card mb-3 container"  style="min-height: 100vh">
+        <div class="row g-0"  style="min-height: 100vh">
           <div class="col-md-4 mr-3 mt-3">
             <img :src="product.imageUrl" class="img-fluid rounded-start " alt="product.category" >
             <div class="d-flex flex-row bd-highlight m-1 mr-3">
@@ -17,13 +17,15 @@
                     {{product.title}}
                     <span class="badge bg-primary ms-2">{{product.category}}</span>
                   </h1>
-                  <p class="card-text">商品描述：{{product.description}}</p>
-                  <p class="card-text">商品內容：{{product.content}}</p>
-                  <p class="card-text mb-">{{product.price}}</p> 元 / {{product.unit}}
+                  <p class="card-text">{{product.description}}</p>
+                  <p class="card-text">{{product.content}}</p>
+                  <p class="card-text mb-1" style="text-decoration: line-through">{{product.origin_price}}</p> 元 / {{product.unit}}
+                  <p class="card-text mb-1">{{product.price}}</p> 元 / {{product.unit}}
             </div>
-          </div>
             <button type="button" class="btn btn-primary"
-                      @click="addTOCart(product.id)"><i class="bi bi-cart-check"></i>加入購物車</button>
+                      @click="addTOCart(product.id)"><i class="bi bi-cart-check"></i>加入購物車
+            </button>
+          </div>
       </div>
     </div>
 

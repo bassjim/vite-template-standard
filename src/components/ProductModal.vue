@@ -93,13 +93,13 @@
                         <div class="mb-3">
                         <label for="description" class="form-label">產品描述</label>
                         <textarea id="description" type="text" class="form-control"
-                                    placeholder="請輸入產品描述">
+                            v-model="innerProduct.description"    placeholder="請輸入產品描述">
                         </textarea>
                         </div>
                         <div class="mb-3">
                         <label for="content" class="form-label">說明內容</label>
                         <textarea id="description" type="text" class="form-control"
-                                    placeholder="請輸入說明內容">
+                          v-model="innerProduct.content"  placeholder="請輸入說明內容">
                         </textarea>
                         </div>
                         <div class="mb-3">
